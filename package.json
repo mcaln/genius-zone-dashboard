@@ -1,0 +1,11 @@
+{
+  "name": "genius-zone-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard psicométrico com 7 frameworks de autoconhecimento — Genius Zones, CliftonStrengths, Kolbe A, Hormozi Value Equation, Wealth Dynamics, Fascination Advantage, Unique Ability",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  }
+}

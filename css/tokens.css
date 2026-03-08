@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Genius Zone Dashboard - Design Tokens
+   ========================================================================== */
+
+:root {
+  --color-bg-primary: #0A0A0A;
+  --color-bg-secondary: #0F0F0F;
+  --color-bg-card: #1A1A1A;
+  --color-bg-card-hover: #222222;
+  --color-bg-elevated: #252525;
+
+  --color-accent-gold: #C9A227;
+  --color-accent-gold-light: #E5C76B;
+  --color-accent-purple: #A855F7;
+  --color-accent-purple-light: #C084FC;
+  --color-accent-green: #22C55E;
+
+  --color-success: #22C55E;
+  --color-warning: #EAB308;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+
+  --color-pink: #EC4899;
+  --color-pink-light: #F9A8D4;
+
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A3A3A3;
+  --color-text-muted: #6B7280;
+
+  --color-border: #2A2A2A;
+  --color-border-light: #3A3A3A;
+
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+  --color-accent-gold-10: rgba(201, 162, 39, 0.1);
+  --color-accent-gold-20: rgba(201, 162, 39, 0.2);
+  --color-accent-purple-10: rgba(168, 85, 247, 0.1);
+  --color-accent-purple-20: rgba(168, 85, 247, 0.2);
+  --color-accent-green-10: rgba(34, 197, 94, 0.1);
+  --color-accent-green-20: rgba(34, 197, 94, 0.2);
+  --color-info-10: rgba(59, 130, 246, 0.1);
+  --color-danger-10: rgba(239, 68, 68, 0.1);
+  --color-warning-10: rgba(234, 179, 8, 0.1);
+  --color-pink-10: rgba(236, 72, 153, 0.1);
+  --color-pink-20: rgba(236, 72, 153, 0.2);
+  --color-white-5: rgba(255, 255, 255, 0.05);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+  --color-white-20: rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --color-bg-primary: #FAFAFA;
+    --color-bg-secondary: #F0F0F2;
+    --color-bg-card: #FFFFFF;
+    --color-bg-card-hover: #F5F5F7;
+    --color-bg-elevated: #FFFFFF;
+    --color-text-primary: #1A1A1A;
+    --color-text-secondary: #4A4A4A;
+    --color-text-muted: #737373;
+    --color-border: #E0E0E0;
+    --color-border-light: #EBEBEB;
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+    --color-white-5: rgba(0, 0, 0, 0.03);
+    --color-white-10: rgba(0, 0, 0, 0.06);
+    --color-white-20: rgba(0, 0, 0, 0.1);
+  }
+}
