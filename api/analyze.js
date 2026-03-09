@@ -141,8 +141,8 @@ module.exports = async function handler(req, res) {
   // Rate limit: 3 requests per minute per IP (expensive Sonnet call)
   if (!rateLimit(req, res, 3, 60 * 1000)) return;
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'ANTHROPIC_API_KEY não configurada no Vercel' });
+  const apiKey = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_KEY;
+  if (!apiKey) return res.status(500).json({ error: 'ANTHROPIC_API_KEY ou ANTHROPIC_KEY não configurada' });
 
   const { text, fileName } = req.body || {};
   if (!text || text.length < 50) return res.status(400).json({ error: 'Texto muito curto para análise' });
@@ -175,7 +175,7 @@ module.exports = async function handler(req, res) {
       await logTokenUsage('/api/analyze', 'claude-sonnet-4-6', data.usage.input_tokens, data.usage.output_tokens);
     }
 
-    const toolUse = data.content && data.content.find(function(c) { return c.type === 'tool_use'; });
+    const toolUse = data.content && data.content.find(function (c) { return c.type === 'tool_use'; });
     if (!toolUse || !toolUse.input) return res.status(502).json({ error: 'Resposta inválida da API' });
 
     // Record quota usage after successful analysis

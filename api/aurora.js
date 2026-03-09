@@ -12,7 +12,7 @@ function summarizeDocument(text) {
   var intro = words.slice(0, 400).join(' ');
 
   // Extrair linhas com dados quantitativos (scores, %, numeros relevantes)
-  var dataLines = text.split('\n').filter(function(line) {
+  var dataLines = text.split('\n').filter(function (line) {
     return /\d+%|\b\d+\/\d+\b|score|zona|talento|perfil|nivel|rank|top\s?\d/i.test(line);
   });
 
@@ -70,8 +70,8 @@ module.exports = async function handler(req, res) {
   // Rate limit: 10 requests per minute per IP
   if (!rateLimit(req, res, 10, 60 * 1000)) return;
 
-  var apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
+  var apiKey = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_KEY;
+  if (!apiKey) return res.status(500).json({ error: 'API key not configured (ANTHROPIC_API_KEY or ANTHROPIC_KEY)' });
 
   var body = req.body || {};
   var messages = body.messages;
@@ -107,7 +107,7 @@ module.exports = async function handler(req, res) {
 
     var data = await response.json();
     if (data.usage) await logTokenUsage('/api/aurora', 'claude-haiku-4-5-20251001', data.usage.input_tokens, data.usage.output_tokens);
-    var textBlock = data.content && data.content.find(function(c) { return c.type === 'text'; });
+    var textBlock = data.content && data.content.find(function (c) { return c.type === 'text'; });
     if (!textBlock) return res.status(502).json({ error: 'Resposta vazia' });
 
     // Record quota usage after successful response

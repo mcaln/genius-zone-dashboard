@@ -41,19 +41,27 @@ async function verifyAuth(req) {
  * @returns {object|null} user if authenticated, null if 401 was sent
  */
 async function requireAuth(req, res) {
-  // Auth-optional: if Supabase not configured, return anonymous user
-  if (!isSupabaseConfigured()) {
+  var header = req.headers['authorization'];
+
+  // Auth-optional: if no token is provided, return anonymous user
+  if (!header || header.indexOf('Bearer ') !== 0) {
     return { id: 'anonymous', email: 'anonymous@local' };
   }
 
-  var user = await verifyAuth(req);
-  if (!user) {
-    var ip = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || 'unknown';
-    console.warn('[SECURITY] AUTH_FAILURE ip=' + ip + ' endpoint=' + (req.url || ''));
-    res.status(401).json({ error: 'Authentication required' });
-    return null;
+  // If a token IS provided, we attempt to verify it IF Supabase is configured
+  if (isSupabaseConfigured()) {
+    var user = await verifyAuth(req);
+    if (!user) {
+      var ip = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || 'unknown';
+      console.warn('[SECURITY] AUTH_FAILURE ip=' + ip + ' endpoint=' + (req.url || ''));
+      res.status(401).json({ error: 'Authentication required' });
+      return null;
+    }
+    return user;
   }
-  return user;
+
+  // If token provided but Supabase NOT configured, fallback to anonymous
+  return { id: 'anonymous', email: 'anonymous@local' };
 }
 
 module.exports = { verifyAuth: verifyAuth, requireAuth: requireAuth };
